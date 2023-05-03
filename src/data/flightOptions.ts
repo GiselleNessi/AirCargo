@@ -7,7 +7,16 @@ const chance = new Chance();
 const airportCodes: string[] = ["JFK", "LAX", "SFO", "ORD"];
 
 // List of airline names
-const airlineNames: string[] = ["Delta Air Lines", "United Airlines", "American Airlines", "Southwest Airlines", "JetBlue Airways"];
+const airlineNames: string[] = [
+  "Delta Air Lines",
+  "United Airlines",
+  "American Airlines",
+  "Southwest Airlines",
+  "JetBlue Airways",
+];
+
+// List of weight limits
+const weightLimits: string[] = ["10", "20", "30", "40", "50+", "100+"];
 
 const generateFlights = (count: number): Flight[] => {
   const flights: Flight[] = [];
@@ -22,7 +31,8 @@ const generateFlights = (count: number): Flight[] => {
     const airlineLogo = chance.avatar({ protocol: "https" });
     const departureDate = new Date(chance.date({ min: minDate, max: maxDate }));
     const arrivalDate = new Date(
-      departureDate.getTime() + chance.integer({ min: 1, max: 10 }) * 60 * 60 * 1000
+      departureDate.getTime() +
+        chance.integer({ min: 1, max: 10 }) * 60 * 60 * 1000
     );
 
     const price = chance.pickone([
@@ -30,28 +40,40 @@ const generateFlights = (count: number): Flight[] => {
     ]);
 
     // Generate a 3-letter airport code for origin and destination
-    const originAirport = airportCodes[Math.floor(Math.random() * airportCodes.length)];
+    const originAirport =
+      airportCodes[Math.floor(Math.random() * airportCodes.length)];
     let destinationAirport = originAirport;
     while (destinationAirport === originAirport) {
-      destinationAirport = airportCodes[Math.floor(Math.random() * airportCodes.length)];
+      destinationAirport =
+        airportCodes[Math.floor(Math.random() * airportCodes.length)];
     }
 
-    const flight: Flight = {
-      airlineName,
-      airlineLogo,
-      departureDate,
-      arrivalDate,
-      price,
-      origin: originAirport,
-      destination: destinationAirport,
-      weight: chance.integer({ min: 1, max: 100 }),
-      id: i,
-    };
+    const weight = chance.pickone([10, 20, 30, 40]);
 
-    flights.push(flight);
+    // Generate flights with same origin, destination, dates, and weight but different airlines, times, and prices
+    const numFlights = chance.integer({ min: 1, max: 3 });
+    for (let j = 0; j < numFlights; j++) {
+      const flight: Flight = {
+        airlineName: airlineNames[(i + j) % airlineNames.length],
+        airlineLogo,
+        departureDate: new Date(departureDate.getTime() + j * 60 * 60 * 1000),
+        arrivalDate: new Date(
+          departureDate.getTime() + (j + 1) * 60 * 60 * 1000
+        ),
+        price: price - 50 * j,
+        origin: originAirport,
+        destination: destinationAirport,
+        weight,
+        id: i * 10 + j,
+      };
+
+      flights.push(flight);
+    }
   }
-console.log(flights)
+
+  console.log(flights);
   return flights;
 };
+
 
 export const flightOptions: Flight[] = generateFlights(100);

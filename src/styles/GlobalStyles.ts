@@ -25,6 +25,22 @@ export const GlobalStyles = createGlobalStyle`
     }
   }
 
+select {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 0 10px 20px 0;
+  width: 200px;
+  font-size: 16px;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 3px 1px #4caf50;
+  }
+}
+
   input[type="text"],
   input[type="date"],
   input[type="number"] {

@@ -38,7 +38,7 @@ const AirlineLogo = styled.img`
 const Results: React.FC<ResultsProps> = ({ filteredFlights, searchCriteria }) => { // Update prop name
   return (
     <div>
-      <p>Showing results for:</p>
+  {/*     <p>Showing results for:</p>
       {searchCriteria && (
         <>
           <p>
@@ -55,7 +55,7 @@ const Results: React.FC<ResultsProps> = ({ filteredFlights, searchCriteria }) =>
             <strong>Weight:</strong> {searchCriteria.weight} kg
           </p>
         </>
-      )}
+      )} */}
       <ResultContainer>
         {filteredFlights.map((flightOption, index) => ( // Update variable name
           <ResultCard key={index}>
