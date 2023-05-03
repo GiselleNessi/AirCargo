@@ -7,6 +7,7 @@ export interface Flight {
   origin: string;
   destination: string;
   weight: number;
+  id: number;
 }
 
   

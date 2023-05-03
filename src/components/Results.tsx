@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Flight } from "../types/types"; // Import the Flight type
 
 interface ResultsProps {
-  flightOptions: Flight[];
+  filteredFlights: Flight[]; // Rename prop from flightOptions to filteredFlights
   searchCriteria?: {
     origin: string;
     destination: string;
@@ -24,10 +24,10 @@ const ResultCard = styled.div`
   width: 300px;
   margin: 16px;
   padding: 16px;
-  border: 1px solid ${(props) => props.theme.colors.border};
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
+
 
 const AirlineLogo = styled.img`
   width: 100%;
@@ -35,7 +35,7 @@ const AirlineLogo = styled.img`
   object-fit: contain;
 `;
 
-const Results: React.FC<ResultsProps> = ({ flightOptions, searchCriteria }) => {
+const Results: React.FC<ResultsProps> = ({ filteredFlights, searchCriteria }) => { // Update prop name
   return (
     <div>
       <p>Showing results for:</p>
@@ -57,7 +57,7 @@ const Results: React.FC<ResultsProps> = ({ flightOptions, searchCriteria }) => {
         </>
       )}
       <ResultContainer>
-        {flightOptions.map((flightOption, index) => (
+        {filteredFlights.map((flightOption, index) => ( // Update variable name
           <ResultCard key={index}>
             <h3>{flightOption.airlineName}</h3>
             <AirlineLogo src={flightOption.airlineLogo} alt="Airline logo" />

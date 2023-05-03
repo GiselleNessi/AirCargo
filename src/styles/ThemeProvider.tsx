@@ -6,6 +6,7 @@ export const darkTheme = {
   color: '#fff',
   buttonBackground: '#3e8e41',
   buttonColor: '#fff',
+  border: '1px solid black',
 };
 
 interface ThemeProviderProps {

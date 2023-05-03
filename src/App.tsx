@@ -13,21 +13,17 @@ function App() {
   const [filteredFlights, setFilteredFlights] = useState<Flight[]>([]);
 
   const handleSearch = (searchData: SearchData) => {
+    console.log(searchData);
     try {
       // Filter flights based on the search criteria
       const filteredData = filterFlights(flightOptions, searchData) as Flight[];
-
-
-      // Check that we have at least 3 unique airlines in the search results
-      const uniqueAirlines = new Set(filteredData.map((flight: any) => flight.airlineName));
-      if (uniqueAirlines.size < 3) {
-        throw new Error('Not enough unique airlines found in search results');
-      }
-
+    
+      console.log(filteredData, "dataaaa");
+      console.log(searchData);
+      console.log(filteredFlights, "ooooo")
       // Sort the search results by price (lowest first)
       const sortedData = filteredData.sort((a: Flight, b: Flight) => a.price - b.price);
-
-
+  
       setSearchCriteria(searchData);
       setFilteredFlights(sortedData); // Update this line
     } catch (error) {
@@ -40,7 +36,8 @@ function App() {
       <GlobalStyles />
       <SearchForm onSearch={handleSearch} />
       {filteredFlights.length > 0 && searchCriteria && (
-    <Results flightOptions={filteredFlights} searchCriteria={{...searchCriteria, weight: searchCriteria.weight.toString()}} /> // Convert weight to string
+    <Results filteredFlights={filteredFlights} searchCriteria={{...searchCriteria, weight: searchCriteria.weight.toString()}} />
+    // Convert weight to string
   )}
     </ThemeProvider>
   );
