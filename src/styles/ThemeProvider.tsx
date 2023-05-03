@@ -1,7 +1,7 @@
 import React from 'react';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 
-const darkTheme = {
+export const darkTheme = {
   background: '#222',
   color: '#fff',
   buttonBackground: '#3e8e41',

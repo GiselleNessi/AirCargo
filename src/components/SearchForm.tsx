@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { getFlightOptions } from '../utils/getFlightOptions';
 
 interface SearchFormProps {
   onSearch: (results: any[]) => void;
@@ -11,38 +11,43 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [weight, setWeight] = useState('');
+  const [error, setError] = useState('');
 
   const handleSearch = async () => {
-    try {
-      const response = await axios.get('/api/flights', {
-        params: {
-          origin,
-          destination,
-          startDate,
-          endDate,
-          weight,
-        },
-      });
-      onSearch(response.data);
-    } catch (error) {
-      console.error(error);
+    if (!origin || !destination || !startDate || !endDate || !weight) {
+      setError('Please fill out all fields.');
+      return;
     }
+    if (new Date(endDate).getTime() - new Date(startDate).getTime() > 10 * 24 * 60 * 60 * 1000) {
+      setError('Date range should be up to 10 days.');
+      return;
+    }
+    const results = await getFlightOptions({
+      origin,
+      destination,
+      startDate,
+      endDate,
+      weight,
+    });
+    onSearch(results);
   };
 
   return (
     <div>
       <label>
-        Origin:
+        Origin Airport (e.g. LAX):
         <input
           type="text"
+          placeholder="e.g. LAX"
           value={origin}
           onChange={(e) => setOrigin(e.target.value)}
         />
       </label>
       <label>
-        Destination:
+        Destination Airport (e.g. JFK):
         <input
           type="text"
+          placeholder="e.g. JFK"
           value={destination}
           onChange={(e) => setDestination(e.target.value)}
         />
@@ -51,6 +56,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
         Start Date:
         <input
           type="date"
+          placeholder="MM/DD/YYYY"
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
         />
@@ -59,18 +65,21 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
         End Date:
         <input
           type="date"
+          placeholder="MM/DD/YYYY"
           value={endDate}
           onChange={(e) => setEndDate(e.target.value)}
         />
       </label>
       <label>
-        Weight (kg):
+        Weight of Shipment (kg):
         <input
           type="number"
+          placeholder="e.g. 500"
           value={weight}
           onChange={(e) => setWeight(e.target.value)}
         />
       </label>
+      {error && <p>{error}</p>}
       <button onClick={handleSearch}>Search</button>
     </div>
   );
