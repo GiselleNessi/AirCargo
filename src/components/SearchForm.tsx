@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { SearchData } from '../types/types';
-import { filterFlights } from '../utils/filterFlights';
-import { flightOptions } from '../data/flightOptions';
 
 interface SearchFormProps {
   onSearch: (results: SearchData) => void;
@@ -88,11 +86,5 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
 };
 
 export default SearchForm;
-function setFlightOptions(sortedData: any) {
-    throw new Error('Function not implemented.');
-}
 
-function setSearchCriteria(searchData: any) {
-    throw new Error('Function not implemented.');
-}
 

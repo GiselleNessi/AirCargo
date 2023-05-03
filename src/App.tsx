@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyles } from './styles/GlobalStyles';
 import { darkTheme } from './styles/ThemeProvider';
@@ -16,7 +15,8 @@ function App() {
   const handleSearch = (searchData: SearchData) => {
     try {
       // Filter flights based on the search criteria
-      const filteredData = filterFlights(flightOptions, searchData);
+      const filteredData = filterFlights(flightOptions, searchData) as Flight[];
+
 
       // Check that we have at least 3 unique airlines in the search results
       const uniqueAirlines = new Set(filteredData.map((flight: any) => flight.airlineName));
@@ -25,7 +25,8 @@ function App() {
       }
 
       // Sort the search results by price (lowest first)
-      const sortedData = filteredData.sort((a: any, b: any) => a.price - b.price);
+      const sortedData = filteredData.sort((a: Flight, b: Flight) => a.price - b.price);
+
 
       setSearchCriteria(searchData);
       setFilteredFlights(sortedData); // Update this line

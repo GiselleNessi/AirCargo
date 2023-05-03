@@ -1,75 +1,156 @@
-// flightOptions.ts
-import { Flight } from '../types/types'; // Import Flight type from your types file
+import Chance from "chance";
+import { Flight } from "../types/types";
 
-export const flightOptions: Flight[] = [
-   {
-    "airlineName": "Airline A",
-    "airlineLogo": "https://www.example.com/airlineA.png",
-    "departureDate": "2023-06-01T12:00:00Z",
-    "arrivalDate": "2023-06-01T18:00:00Z",
-    "price": 200,
-    "origin": "LAX",
-    "destination": "JFK",
-    "weight": 20
-  },
-  {
-    "airlineName": "Airline A",
-    "airlineLogo": "https://www.example.com/airlineA.png",
-    "departureDate": "2023-06-02T08:00:00Z",
-    "arrivalDate": "2023-06-02T14:00:00Z",
-    "price": 250,
-    "origin": "JFK",
-    "destination": "LAX",
-    "weight": 25
-  },
-  {
-    "airlineName": "Airline B",
-    "airlineLogo": "https://www.example.com/airlineB.png",
-    "departureDate": "2023-06-03T10:00:00Z",
-    "arrivalDate": "2023-06-03T16:00:00Z",
-    "price": 220,
-    "origin": "MAD",
-    "destination": "CDG",
-    "weight": 15
-  },
-  {
-    "airlineName": "Airline B",
-    "airlineLogo": "https://www.example.com/airlineB.png",
-    "departureDate": "2023-06-04T09:00:00Z",
-    "arrivalDate": "2023-06-04T15:00:00Z",
-    "price": 190,
-    "origin": "CDG",
-    "destination": "MAD",
-    "weight": 10
-  },
-  {
-    "airlineName": "Airline C",
-    "airlineLogo": "https://www.example.com/airlineC.png",
-    "departureDate": "2023-06-05T07:00:00Z",
-    "arrivalDate": "2023-06-05T13:00:00Z",
-    "price": 280,
-    "origin": "JFK",
-    "destination": "CDG",
-    "weight": 30
-  },
-  {
-    "airlineName": "Airline C",
-    "airlineLogo": "https://www.example.com/airlineC.png",
-    "departureDate": "2023-06-06T14:00:00Z",
-    "arrivalDate": "2023-06-06T20:00:00Z",
-    "price": 300,
-    "origin": "CDG",
-    "destination": "JFK",
-    "weight": 35
-  },
-  {
-    "airlineName": "Airline D",
-    "airlineLogo": "https://www.example.com/airlineD.png",
-    "departureDate": "2023-06-07T11:00:00Z",
-    "arrivalDate": "2023-06-07T17:00:00Z",
-    "price": 240,
-    "origin": "LAX",
-    "destination": "CDG",
-    "weight": 20
-  },
+const chance = new Chance();
+
+// List of airport codes
+const airportCodes: string[] = [
+  "JFK",
+"LAX",
+"LHR",
+"CDG",
+"SYD",
+"HND",
+"DEN",
+"SFO",
+"ORD",
+"DUB",
+"AMS",
+"BOM",
+"DEL",
+"HKG",
+"SIN",
+"ICN",
+"PEK",
+"SHA",
+"NRT",
+"FCO",
+"MXP",
+"IST",
+"DXB",
+"BKK",
+"CUN",
+"PTY",
+"BOG",
+"GRU",
+"EZE",
+"LIM",
+"JNB",
+"CPT",
+"CAI",
+"TPE",
+"AKL",
+"BNE",
+"MEL",
+"PER",
+"YYZ",
+"YVR",
+"YUL",
+"YYC",
+"YOW",
+"MEX",
+"CUN",
+"UIO",
+"LIM",
+"SCL",
+"BOG",
+"EZE",
+"GRU",
+"CPT",
+"JNB",
+"SEZ",
+"MLE",
+"BAH",
+"DOH",
+"RUH",
+"KWI",
+"DXB",
+"JED",
+"BEY",
+"TLV",
+"ATH",
+"BCN",
+"BRU",
+"BUD",
+"CPH",
+"DUB",
+"FCO",
+"FRA",
+"HEL",
+"IST",
+"LIS",
+"LHR",
+"MAD",
+"MUC",
+"OSL",
+"CDG",
+"PRG",
+"ARN",
+"VIE",
+"ZRH"
+  // Add more airport codes as needed
 ];
+
+const generateFlights = (count: number, uniqueAirlines: number): Flight[] => {
+  const flights: Flight[] = [];
+  const airlines: string[] = [];
+
+  while (airlines.length < uniqueAirlines) {
+    const airlineName = chance.company();
+
+    if (!airlines.includes(airlineName)) {
+      airlines.push(airlineName);
+    }
+  }
+
+  for (let i = 0; i < count; i++) {
+    const airlineName = airlines[i % airlines.length];
+
+    const airlineLogo = chance.avatar({ protocol: "https" });
+    const departureDate = new Date(
+      chance.date({ string: true, american: false })
+    );
+    const departureMin = new Date(
+      departureDate.getTime() + 1 * 60 * 60 * 1000
+    );
+    const departureMax = new Date(
+      departureDate.getTime() + 5 * 60 * 60 * 1000
+    );
+    const arrivalDate = new Date(
+      chance.date({
+        string: true,
+        american: false,
+        min: departureMin,
+        max: departureMax,
+      })
+    );
+
+    const price = chance.pickone([
+      100, 200, 300, 400, 500, 600, 700, 800, 900, 1000,
+    ]);
+
+    // Generate a 3-letter airport code for origin and destination
+    const originAirport = airportCodes[Math.floor(Math.random() * airportCodes.length)];
+    let destinationAirport = originAirport;
+    while (destinationAirport === originAirport) {
+      destinationAirport = airportCodes[Math.floor(Math.random() * airportCodes.length)];
+    }
+
+    const flight: Flight = {
+      airlineName,
+      airlineLogo,
+      departureDate,
+      arrivalDate,
+      price,
+      origin: originAirport,
+      destination: destinationAirport,
+      weight: chance.integer({ min: 1, max: 100 }),
+    };
+
+    flights.push(flight);
+  }
+console.log(flights)
+  return flights;
+};
+
+export const flightOptions: Flight[] = generateFlights(100, 5);

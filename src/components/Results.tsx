@@ -14,17 +14,6 @@ interface ResultsProps {
   };
 }
 
-interface FlightOption {
-  airlineName: string;
-  airlineLogo: string;
-  departureDate: string;
-  arrivalDate: string;
-  price: number;
-  origin: string;
-  destination: string;
-  weight: number;
-}
-
 const ResultContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -73,11 +62,14 @@ const Results: React.FC<ResultsProps> = ({ flightOptions, searchCriteria }) => {
             <h3>{flightOption.airlineName}</h3>
             <AirlineLogo src={flightOption.airlineLogo} alt="Airline logo" />
             <p>
-              Departure: <strong>{flightOption.departureDate}</strong>
+              Departure:{" "}
+              <strong>{flightOption.departureDate.toLocaleString()}</strong>
             </p>
             <p>
-              Arrival: <strong>{flightOption.arrivalDate}</strong>
+              Arrival:{" "}
+              <strong>{flightOption.arrivalDate.toLocaleString()}</strong>
             </p>
+
             <p>
               Price: <strong>{flightOption.price}</strong> EUR
             </p>
