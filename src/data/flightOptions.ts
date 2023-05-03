@@ -1,5 +1,8 @@
-[
-  {
+// flightOptions.ts
+import { Flight } from '../types/types'; // Import Flight type from your types file
+
+export const flightOptions: Flight[] = [
+   {
     "airlineName": "Airline A",
     "airlineLogo": "https://www.example.com/airlineA.png",
     "departureDate": "2023-06-01T12:00:00Z",
@@ -68,5 +71,5 @@
     "origin": "LAX",
     "destination": "CDG",
     "weight": 20
-  }
-]
+  },
+];

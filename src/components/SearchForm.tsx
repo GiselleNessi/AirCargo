@@ -1,36 +1,38 @@
 import React, { useState } from 'react';
-import { getFlightOptions } from '../utils/getFlightOptions';
+import { SearchData } from '../types/types';
+import { filterFlights } from '../utils/filterFlights';
+import { flightOptions } from '../data/flightOptions';
 
 interface SearchFormProps {
-  onSearch: (results: any[]) => void;
+  onSearch: (results: SearchData) => void;
 }
 
 const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
-  const [origin, setOrigin] = useState('');
-  const [destination, setDestination] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [weight, setWeight] = useState('');
-  const [error, setError] = useState('');
-
-  const handleSearch = async () => {
-    if (!origin || !destination || !startDate || !endDate || !weight) {
-      setError('Please fill out all fields.');
-      return;
-    }
-    if (new Date(endDate).getTime() - new Date(startDate).getTime() > 10 * 24 * 60 * 60 * 1000) {
-      setError('Date range should be up to 10 days.');
-      return;
-    }
-    const results = await getFlightOptions({
-      origin,
-      destination,
-      startDate,
-      endDate,
-      weight,
-    });
-    onSearch(results);
-  };
+    const [origin, setOrigin] = useState('');
+    const [destination, setDestination] = useState('');
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const [weight, setWeight] = useState('');
+    const [error, setError] = useState('');
+  
+    const handleSearch = () => {
+        if (!origin || !destination || !startDate || !endDate || !weight) {
+          setError('Please fill out all fields.');
+          return;
+        }
+        if (new Date(endDate).getTime() - new Date(startDate).getTime() > 10 * 24 * 60 * 60 * 1000) {
+          setError('Date range should be up to 10 days.');
+          return;
+        }
+        const searchData: SearchData = {
+          origin,
+          destination,
+          startDate,
+          endDate,
+          weight: parseInt(weight, 10),
+        };
+        onSearch(searchData);
+      };
 
   return (
     <div>
@@ -86,3 +88,11 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
 };
 
 export default SearchForm;
+function setFlightOptions(sortedData: any) {
+    throw new Error('Function not implemented.');
+}
+
+function setSearchCriteria(searchData: any) {
+    throw new Error('Function not implemented.');
+}
+

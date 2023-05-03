@@ -1,5 +1,18 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
+
+import { Flight } from "../types/types"; // Import the Flight type
+
+interface ResultsProps {
+  flightOptions: Flight[];
+  searchCriteria?: {
+    origin: string;
+    destination: string;
+    startDate: string;
+    endDate: string;
+    weight: string;
+  };
+}
 
 interface FlightOption {
   airlineName: string;
@@ -10,17 +23,6 @@ interface FlightOption {
   origin: string;
   destination: string;
   weight: number;
-}
-
-interface ResultsProps {
-  flightOptions: FlightOption[];
-  searchCriteria?: {
-    origin: string;
-    destination: string;
-    startDate: string;
-    endDate: string;
-    weight: string;
-  };
 }
 
 const ResultContainer = styled.div`
@@ -57,7 +59,7 @@ const Results: React.FC<ResultsProps> = ({ flightOptions, searchCriteria }) => {
             <strong>Destination:</strong> {searchCriteria.destination}
           </p>
           <p>
-            <strong>Date Range:</strong> {searchCriteria.startDate} -{' '}
+            <strong>Date Range:</strong> {searchCriteria.startDate} -{" "}
             {searchCriteria.endDate}
           </p>
           <p>

@@ -5,33 +5,30 @@ import { GlobalStyles } from './styles/GlobalStyles';
 import { darkTheme } from './styles/ThemeProvider';
 import SearchForm from './components/SearchForm';
 import Results from './components/Results';
+import { flightOptions } from './data/flightOptions';
+import { filterFlights } from './utils/filterFlights';
+import { Flight, SearchData } from './types/types'; // Import the Flight type
 
 function App() {
-  const [flightOptions, setFlightOptions] = useState([]);
-  const [searchCriteria, setSearchCriteria] = useState<{
-    origin: string;
-    destination: string;
-    startDate: string;
-    endDate: string;
-    weight: string;
-  } | null>(null);
+  const [searchCriteria, setSearchCriteria] = useState<SearchData | null>(null);
+  const [filteredFlights, setFilteredFlights] = useState<Flight[]>([]);
 
-  const handleSearch = async (searchData: any) => {
+  const handleSearch = (searchData: SearchData) => {
     try {
-      const response = await axios.get('/api/flights', { params: searchData });
-      const { data } = response;
+      // Filter flights based on the search criteria
+      const filteredData = filterFlights(flightOptions, searchData);
 
       // Check that we have at least 3 unique airlines in the search results
-      const uniqueAirlines = new Set(data.map((flight: any) => flight.airlineName));
+      const uniqueAirlines = new Set(filteredData.map((flight: any) => flight.airlineName));
       if (uniqueAirlines.size < 3) {
         throw new Error('Not enough unique airlines found in search results');
       }
 
       // Sort the search results by price (lowest first)
-      const sortedData = data.sort((a: any, b: any) => a.price - b.price);
+      const sortedData = filteredData.sort((a: any, b: any) => a.price - b.price);
 
       setSearchCriteria(searchData);
-      setFlightOptions(sortedData);
+      setFilteredFlights(sortedData); // Update this line
     } catch (error) {
       console.error(error);
     }
@@ -41,12 +38,11 @@ function App() {
     <ThemeProvider theme={darkTheme}>
       <GlobalStyles />
       <SearchForm onSearch={handleSearch} />
-      {flightOptions.length > 0 && searchCriteria && (
-        <Results flightOptions={flightOptions} searchCriteria={searchCriteria} />
-      )}
+      {filteredFlights.length > 0 && searchCriteria && (
+    <Results flightOptions={filteredFlights} searchCriteria={{...searchCriteria, weight: searchCriteria.weight.toString()}} /> // Convert weight to string
+  )}
     </ThemeProvider>
   );
 }
-
 
 export default App;
