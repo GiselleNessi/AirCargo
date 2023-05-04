@@ -1,27 +1,17 @@
-# Air Cargo
+# Flight Search App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a sample flight search app built with React and TypeScript. The app allows users to search for flights based on origin and destination airports, date range, and weight of shipment.
 
-## Available Scripts
+## Tech Specs
 
-In the project directory, you can run:
+- React
+- TypeScript
+- styled-components
+- Chance (for generating mock data)
 
-### `npm start`
+## Architecture
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-## High-level example of application architecture
+Here's a high-level diagram of the architecture:
 
 ┌───────────────────┐        ┌───────────────────┐
 │    Search Form     │        │   Flight Options   │
@@ -53,5 +43,53 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
                                   ┌───────────────────┐
                                   │   JSON Data Files  │
                                   └───────────────────┘
+
+
+## Getting Started
+
+To run this app locally, follow these steps:
+
+1. Clone this repository: git clone https://github.com/your-username/flight-search-app.git
+2. Install the dependencies
+
+### `npm install`
+
+3. Run the app in the development mode
+
+### `npm start`
+
+
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+## Sample Data
+
+The app uses mock flight data to generate the search results. The data includes the following fields:
+
+- **airlineName:** The name of the airline that operates the flight.
+- **airlineLogo:** The URL of the airline's logo image.
+- **departureDate:** The date and time of the flight's departure.
+- **arrivalDate:** The date and time of the flight's arrival.
+- **origin:** The airport code of the flight's origin.
+- **destination:** The airport code of the flight's destination.
+- **price:** The price of the flight.
+- **weight:** The weight limit of the shipment, in kilograms.
+
+Here's an example of the flight data:
+
+  ```json
+{
+    "id": 0,
+    "airlineName": "Delta Air Lines",
+    "airlineLogo": "https://i.pravatar.cc/100?img=1",
+    "departureDate": "2023-05-05T18:30:00.000Z",
+    "arrivalDate": "2023-05-05T22:45:00.000Z",
+    "origin": "LAX",
+    "destination": "JFK",
+    "price": 600,
+    "weight": 20
+  }
+   ```
+
+
 
 
