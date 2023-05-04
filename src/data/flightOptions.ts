@@ -51,7 +51,7 @@ const generateFlights = (count: number): Flight[] => {
     const weight = chance.pickone([10, 20, 30, 40]);
 
     // Generate flights with same origin, destination, dates, and weight but different airlines, times, and prices
-    const numFlights = chance.integer({ min: 1, max: 3 });
+    const numFlights = chance.integer({ min: 3, max: 6 });
     for (let j = 0; j < numFlights; j++) {
       const flight: Flight = {
         airlineName: airlineNames[(i + j) % airlineNames.length],

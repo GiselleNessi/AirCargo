@@ -18,7 +18,7 @@ function App() {
       const filteredData = filterFlights(flightOptions, searchData) as Flight[];
 
       console.log(searchData);
-      
+
       // Sort the search results by price (lowest first)
       const sortedData = filteredData.sort(
         (a: Flight, b: Flight) => a.price - b.price
@@ -35,6 +35,9 @@ function App() {
     <ThemeProvider theme={darkTheme}>
       <GlobalStyles />
       <SearchForm onSearch={handleSearch} />
+      {searchCriteria && filteredFlights.length === 0 && (
+        <p style={{ marginLeft: '30px'}}>No flights found. Please try a different date.</p>
+      )}
       {filteredFlights.length > 0 && searchCriteria && (
         <Results
           filteredFlights={filteredFlights}
