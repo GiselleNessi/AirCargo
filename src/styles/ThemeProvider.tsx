@@ -1,12 +1,12 @@
-import React from 'react';
-import { ThemeProvider as StyledThemeProvider } from 'styled-components';
+import React from "react";
+import { ThemeProvider as StyledThemeProvider } from "styled-components";
 
 export const darkTheme = {
-  background: '#222',
-  color: '#fff',
-  buttonBackground: '#3e8e41',
-  buttonColor: '#fff',
-  border: '1px solid black',
+  background: "#222",
+  color: "#fff",
+  buttonBackground: "#3e8e41",
+  buttonColor: "#fff",
+  border: "1px solid black",
 };
 
 interface ThemeProviderProps {
@@ -15,8 +15,6 @@ interface ThemeProviderProps {
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   return (
-    <StyledThemeProvider theme={darkTheme}>
-      {children}
-    </StyledThemeProvider>
+    <StyledThemeProvider theme={darkTheme}>{children}</StyledThemeProvider>
   );
 };

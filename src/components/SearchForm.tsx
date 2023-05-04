@@ -19,6 +19,7 @@ const Container = styled.div`
   margin-right: 20px;
 `;
 
+// List of air codes
 const airportCodes: string[] = ["JFK", "LAX", "SFO", "ORD"];
 
 // List of weight limits

@@ -10,12 +10,10 @@ export interface Flight {
   id: number;
 }
 
-  
-  export interface SearchData {
-    origin: string;
-    destination: string;
-    startDate: string;
-    endDate: string;
-    weight: number;
-  }
-  
+export interface SearchData {
+  origin: string;
+  destination: string;
+  startDate: string;
+  endDate: string;
+  weight: number;
+}

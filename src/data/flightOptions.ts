@@ -75,5 +75,4 @@ const generateFlights = (count: number): Flight[] => {
   return flights;
 };
 
-
 export const flightOptions: Flight[] = generateFlights(100);

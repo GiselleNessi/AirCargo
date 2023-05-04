@@ -1,23 +1,28 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
   body {
-    background-color: #222;
+    background-color: #1c1e21;
     color: #fff;
-    font-family: Arial, sans-serif;
+    font-family: "Inter", sans-serif;
   }
   
   button {
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    text-align: center;
+    padding: 5px;
+    color: #fff;
+    font-weight: 600;
+    background-color: #418dff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    padding: 8px;
+    height: 3rem;
+    width: 6rem;
+    font-size: 1rem;
 
     &:hover {
-      background-color: #3e8e41;
+      opacity: 0.8;
     }
 
     &:focus {

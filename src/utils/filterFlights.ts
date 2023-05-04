@@ -1,8 +1,11 @@
 // utils/filterFlights.ts
 
-import { Flight, SearchData } from '../types/types';
+import { Flight, SearchData } from "../types/types";
 
-export const filterFlights = (flights: Flight[], searchData: SearchData): Flight[] => {
+export const filterFlights = (
+  flights: Flight[],
+  searchData: SearchData
+): Flight[] => {
   const { origin, destination, startDate, endDate, weight } = searchData;
 
   const filteredFlights = flights.filter((flight) => {
