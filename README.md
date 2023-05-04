@@ -44,7 +44,7 @@ The app uses mock flight data to generate the search results. The data includes 
 - **price:** The price of the flight.
 - **weight:** The weight limit of the shipment, in kilograms.
 
-Here's an example of the flight data:
+Here's an example of the flight:
 
   ```json
 {
@@ -59,6 +59,16 @@ Here's an example of the flight data:
     "weight": 20
   }
    ```
+
+- Check console when running app for more data samples
+- Mock data can generate more than one offer returned per date
+
+## Improvements
+
+- Add more error handling and validation
+- Implement automated testing
+- Improve the user interface
+- Add pagination to the results
 
 
 

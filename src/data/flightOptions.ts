@@ -71,7 +71,7 @@ const generateFlights = (count: number): Flight[] => {
     }
   }
 
-  console.log(flights);
+  console.log('Flights sample:', flights);
   return flights;
 };
 
