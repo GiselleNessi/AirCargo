@@ -13,43 +13,13 @@ This is a sample flight search app built with React and TypeScript. The app allo
 
 Here's a high-level diagram of the architecture:
 
-┌───────────────────┐        ┌───────────────────┐
-│    Search Form     │        │   Flight Options   │
-├───────────────────┤        ├───────────────────┤
-│- Origin            │        │- Airline Name      │
-│- Destination       │        │- Airline Logo      │
-│- Range of Dates    │        │- Departure Date    │
-│- Weight of Shipment│        │- Arrival Date      │
-│- Submit Button     │        │- Price             │
-└───────────────────┘        └───────────────────┘
-           │                           │           
-           │        ┌──────────────────┼──────────────────┐
-           │        │                  │                  │
-           │        │    API Request   │                  │
-           │        │   (HTTP Request) │                  │
-           │        │                  │                  │
-           ▼        ▼                  ▼                  ▼
-┌───────────────────┐        ┌───────────────────┐  Mock Backend
-│     App Component  │        │  Results Component │    Server
-├───────────────────┤        ├───────────────────┤
-│- State (search form│        │- List of flight    │
-│  values and flight │        │  options          │
-│  options)          │        └───────────────────┘
-│- Search Form       │                   ▲
-│- Flight Options    │                   │
-│- API Request Logic │                   │
-└───────────────────┘                   │
-                                         │
-                                  ┌───────────────────┐
-                                  │   JSON Data Files  │
-                                  └───────────────────┘
-
+![Diagram](/public/diagram.png "Basic Diagram")
 
 ## Getting Started
 
 To run this app locally, follow these steps:
 
-1. Clone this repository: git clone https://github.com/your-username/flight-search-app.git
+1. Clone this repository: git clone https://github.com/GiselleNessi/AirCargo.git
 2. Install the dependencies
 
 ### `npm install`
